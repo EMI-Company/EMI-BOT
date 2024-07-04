@@ -1,7 +1,8 @@
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, types, F
 from aiogram.enums import ParseMode  # измененный импорт
 import asyncio
 from aiogram.filters import Command  # новый импорт для фильтра команд
+
 
 API_TOKEN = '7428709784:AAHybBmsbItOZJ6drhk3ALdTWAvrvBgme1c'
 NOTION_API_KEY = 'secret_pvaGGjmtgix2XU8MlKJpFoAUEjUgiR6CNW7s5av7FCI'
@@ -20,12 +21,18 @@ async def send_welcome(message: types.Message):
 
     await message.answer(greeting_message, reply_markup=markup)
 
-@dp.message()
+async def handle_connect(message: types.Message):
+    query = message.text
+
+    await message.reply("Выполняю подключение и индексирование документов", parse_mode=ParseMode.MARKDOWN)
+
 async def handle_query(message: types.Message):
     query = message.text
 
-    await message.reply("хуй", parse_mode=ParseMode.MARKDOWN)
+    await message.reply("base command", parse_mode=ParseMode.MARKDOWN)
 
+dp.message.register(handle_connect, F.text == "Подключить Notion")
+dp.message.register(handle_query)
 
 async def main():
     await dp.start_polling(bot)
