@@ -34,7 +34,7 @@ jobs:
             kill $(cat bot_pid.txt) 
             git pull
             
-            nohup python3 main.py > /dev/null 2>&1 &
+            nohup python3 main.py &
             echo $! > bot_pid.txt
             disown
             exit 0
