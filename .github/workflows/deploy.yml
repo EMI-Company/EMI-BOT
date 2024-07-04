@@ -25,12 +25,11 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.SSH_KEY }}
           script: |
-            cd emi
+            cd emi/EMI-BOT/tg-bot
+            
             export API_TOKEN="${{ secrets.API_TOKEN }}"
             # API ключ
             export NOTION_TOKEN="${{ secrets.NOTION_TOKEN }}"
-            
-            cd tg-bot
             
             kill $(cat bot_pid.txt) 
             git pull
