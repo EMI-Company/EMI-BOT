@@ -3,12 +3,12 @@ import os
 
 # Ваш интеграционный токен
 # URL главной страницы
-page_url = "https://www.notion.so/doc-parent-dd54994d407b4721bee88ff3f038b247"
+page_url = ""
 
 # Ваш интеграционный токен
-token = "secret_pvaGGjmtgix2XU8MlKJpFoAUEjUgiR6CNW7s5av7FCI"
+token = ""
 # URL главной страницы
-page_id = "dd54994d407b4721bee88ff3f038b247"
+page_id = ""
 
 client = Client(auth=token)
 
