@@ -1,2 +1,4 @@
-NOTION_TOKEN = "secret_pvaGGjmtgix2XU8MlKJpFoAUEjUgiR6CNW7s5av7FCI"
-API_TOKEN = '7450850829:AAH7YKXTeihzOmaiG0c-RWAN2gcSPfQAwtc'
+import os
+
+NOTION_TOKEN = os.getenv('NOTION_TOKEN')
+API_TOKEN = os.getenv('API_TOKEN')

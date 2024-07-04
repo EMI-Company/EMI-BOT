@@ -1,7 +1,8 @@
 from aiogram import Bot, Dispatcher, types, F
-from aiogram.enums import ParseMode  # измененный импорт
+from aiogram.enums import ParseMode
 import asyncio
-# новый импорт для фильтра команд
+import os
+import subprocess
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from upload_state import UploadState
