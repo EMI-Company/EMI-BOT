@@ -6,6 +6,7 @@ import subprocess
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from upload_state import UploadState
+from request_state import RequestState
 from notion_worker import NotionWorker
 
 from settings import API_TOKEN
@@ -40,6 +41,19 @@ async def request_notion_link(message: types.Message, state: FSMContext):
     await state.set_state(UploadState.waiting_for_notion_link)
 
 
+async def request_query_text(message: types.Message, state: FSMContext):
+    await message.reply("Введите формулировку запроса")
+    await state.set_state(RequestState.waiting_for_request_text)
+
+
+@dp.message(StateFilter(RequestState.waiting_for_request_text))
+async def handle_request_text(message: types.Message, state: FSMContext):
+    text = message.text
+
+    await message.reply(f"Got request text: {text}")
+    await state.clear()
+
+
 @dp.message(StateFilter(UploadState.waiting_for_notion_link))
 async def handle_notion_link(message: types.Message, state: FSMContext):
     notion_link = message.text
@@ -56,6 +70,7 @@ async def handle_notion_link(message: types.Message, state: FSMContext):
 
 dp.message.register(send_welcome, F.text == "Помощь")
 dp.message.register(request_notion_link, F.text == "Подключить Notion")
+dp.message.register(request_query_text, F.text == "Задать вопрос к Notion")
 
 
 async def main():
