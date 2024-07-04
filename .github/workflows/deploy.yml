@@ -25,7 +25,9 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.SSH_KEY }}
           script: |
-            cd emi/EMI-BOT/tg-bot
+            cd emi/EMI-BOT
+            pip install -r requirements.txt
+            cd tg-bot
             
             export API_TOKEN="${{ secrets.API_TOKEN }}"
             # API ключ
