@@ -70,27 +70,26 @@ async def handle_notion_link(message: types.Message, state: FSMContext):
     notion_link = message.text
     user_id = message.chat.id
 
-    # token = NotionWorker.extract_token_from_url(notion_link)
-    #
-    # worker = NotionWorker()
-    # worker.parse_page_content(token)
-    # content = worker.result
+    token = NotionWorker.extract_token_from_url(notion_link)
 
-    content = ["Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года.",
-               "Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года.",
-               "Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года.",
-               "Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года."]
+    worker = NotionWorker()
+    worker.parse_page_content(token)
+    content = worker.result
 
-    if user_id not in user_vectorstores:
-        model = YandexGPTEmbeddings(api_key=Ya_API_KEY, folder_id=FOLDER_ID)
-        text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-            chunk_size=300,
-            chunk_overlap=100)
-        documents = [Document(page_content=text) for text in content]
-        splits = text_splitter.split_documents(documents)
-        vectorstore = Chroma.from_documents(documents=splits, embedding=model)
+    # content = ["Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года.",
+    #            "Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года.",
+    #            "Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года.",
+    #            "Спокойный (эсминец)\nЗачислен в списки ВМФ СССР 19 августа 1952 года."]
 
-        user_vectorstores[user_id] = vectorstore
+    model = YandexGPTEmbeddings(api_key=Ya_API_KEY, folder_id=FOLDER_ID)
+    text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+        chunk_size=300,
+        chunk_overlap=100)
+    documents = [Document(page_content=text) for text in content]
+    splits = text_splitter.split_documents(documents)
+    vectorstore = Chroma.from_documents(documents=splits, embedding=model)
+
+    user_vectorstores[user_id] = vectorstore
 
     print(content)
     await message.reply(f"Notion успешно подключен")
