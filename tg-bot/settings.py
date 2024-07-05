@@ -1,4 +1,7 @@
 import os
 
-NOTION_TOKEN = os.getenv('NOTION_TOKEN')
-API_TOKEN = os.getenv('API_TOKEN')
+NOTION_TOKEN = "secret_pvaGGjmtgix2XU8MlKJpFoAUEjUgiR6CNW7s5av7FCI"
+API_TOKEN = "7428709784:AAHybBmsbItOZJ6drhk3ALdTWAvrvBgme1c"
+
+Ya_API_KEY = "AQVNwz7kWZJVwzfzkkIgABYm9WZhZ7PVdbAEz45i"
+FOLDER_ID = "b1goe5po366bkpcovo87"
